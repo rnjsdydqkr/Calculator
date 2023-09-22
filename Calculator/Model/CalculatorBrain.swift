@@ -14,11 +14,28 @@ class CalculatorBrain {
     accumulator = operand
   }
   
+  var operations: Dictionary<String, Operations> = [
+    "π": Operations.Constant(.pi),
+    "e": Operations.Constant(M_E),
+    "√": Operations.UnaryOperation, // sqrt,
+    "cos": Operations.UnaryOperation // cos
+  ]
+  
+  enum Operations {
+    case Constant(Double)
+    case UnaryOperation
+    case BinaryOperation
+    case Equals
+  }
+  
   func performOperation(symbol: String) {
-    switch symbol {
-    case "π": accumulator = .pi
-    case "√": accumulator = sqrt(accumulator)
-    default: break
+    if let constant = operations[symbol] {
+      switch constant {
+      case .Constant(let value): accumulator = value
+      case .UnaryOperation: break
+      case .BinaryOperation: break
+      case .Equals: break
+      }
     }
   }
   
