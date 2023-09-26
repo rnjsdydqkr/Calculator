@@ -15,16 +15,16 @@ class CalculatorBrain {
   }
   
   private var operations: Dictionary<String, Operation> = [
-    "π": Operation.Constant(.pi),
-    "e": Operation.Constant(M_E),
-    "±": Operation.UnaryOperation({ -$0 }),
-    "√": Operation.UnaryOperation(sqrt),
-    "cos": Operation.UnaryOperation(cos),
-    "÷": Operation.BinaryOperation({ $0 / $1 }),
-    "×": Operation.BinaryOperation({ $0 * $1 }),
-    "+": Operation.BinaryOperation({ $0 + $1 }),
-    "−": Operation.BinaryOperation({ $0 - $1 }),
-    "=": Operation.Equals
+    "π" : .Constant(.pi),
+    "e" : .Constant(M_E),
+    "±" : .UnaryOperation({ -$0 }),
+    "√" : .UnaryOperation(sqrt),
+    "cos" : .UnaryOperation(cos),
+    "÷" : .BinaryOperation({ $0 / $1 }),
+    "×" : .BinaryOperation({ $0 * $1 }),
+    "+" : .BinaryOperation({ $0 + $1 }),
+    "−" : .BinaryOperation({ $0 - $1 }),
+    "=" : .Equals
   ]
   
   private enum Operation {
@@ -51,9 +51,9 @@ class CalculatorBrain {
   }
   
   private func executePendingBinaryOperation() {
-    if pending != nil {
-      accumulator = pending!.binaryFunction(pending!.firstOperand, accumulator)
-      pending = nil
+    if let pending = self.pending {
+      accumulator = pending.binaryFunction(pending.firstOperand, accumulator)
+      self.pending = nil
     }
   }
   
